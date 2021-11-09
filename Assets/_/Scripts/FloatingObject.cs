@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,22 @@ namespace DB.Utils
 	[RequireComponent(typeof(Rigidbody))]
 	public class FloatingObject : MonoBehaviour
 	{
+		public event Action OnStopDrag;
+
 		public Rigidbody rb;
 		public bool isBeingDragged = false;
 		public Quaternion starterRotation;
+
+		public void StartDrag()
+        {
+			isBeingDragged = true;
+        }
+
+		public void StopDrag()
+        {
+			isBeingDragged = false;
+			OnStopDrag?.Invoke();
+		}
 
 		[SerializeField] private float _waterHeight = 0f;
 		[SerializeField] private float _gravityIntensity = 5f;

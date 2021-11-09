@@ -49,6 +49,7 @@ namespace DB.Utils
                     if (_dragee != null)
                     {
                         _hasDragee = true;
+                        _dragee.StartDrag();
                         _planePoint = _dragee.transform.position;
                         _dragee.rb.isKinematic = true;
                     }
@@ -65,6 +66,7 @@ namespace DB.Utils
             if (_hasDragee)
             {
                 _dragee.rb.isKinematic = false;
+                _dragee.StopDrag();
                 _hasDragee = false;
             }
         }
