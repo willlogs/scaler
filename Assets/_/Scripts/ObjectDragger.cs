@@ -6,7 +6,7 @@ namespace DB.Utils
 {
     public class ObjectDragger : MonoBehaviour
     {
-        [SerializeField] private LayerMask _layer;
+        [SerializeField] private LayerMask _layer, _hangerLayer;
         [SerializeField] private float _rotationSpeed = 2f;
 
         private bool _mouseDown = false;
@@ -32,6 +32,17 @@ namespace DB.Utils
                 d = d / lower;
                 _dragee.transform.position = transform.position + d * r.direction.normalized;
                 _dragee.transform.rotation = Quaternion.Slerp(_dragee.transform.rotation, _dragee.starterRotation, _rotationSpeed * Time.fixedDeltaTime);
+
+                Ray hangerRay = new Ray(transform.position, _dragee.hanger.hangerOffsetT.position - transform.position);
+                RaycastHit hit;
+                Physics.Raycast(hangerRay, out hit, 30, _hangerLayer);
+                if(hit.collider != null)
+                {
+                    _dragee.hanger.Hang(hit.collider);
+                }
+                else{
+                    _dragee.hanger.TryStopHang();
+                }
             }
         }
 
@@ -51,7 +62,9 @@ namespace DB.Utils
                         _hasDragee = true;
                         _dragee.StartDrag();
                         _planePoint = _dragee.transform.position;
+                        _planePoint.z = 0;
                         _dragee.rb.isKinematic = true;
+                        _dragee.hanger.TryStopHang();
                     }
                 }
                 else

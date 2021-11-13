@@ -1,3 +1,4 @@
+using DB.Scale;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace DB.Utils
 		public Rigidbody rb;
 		public bool isBeingDragged = false;
 		public Quaternion starterRotation;
+		public Hanger hanger;
 
 		public void StartDrag()
         {
