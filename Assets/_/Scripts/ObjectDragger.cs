@@ -30,10 +30,15 @@ namespace DB.Utils
                 float d = Vector3.Dot((_planePoint - transform.position), _planeNormal);
                 float lower = Vector3.Dot(r.direction.normalized, _planeNormal);
                 d = d / lower;
-                _dragee.transform.position = transform.position + d * r.direction.normalized;
-                _dragee.transform.rotation = Quaternion.Slerp(_dragee.transform.rotation, _dragee.starterRotation, _rotationSpeed * Time.fixedDeltaTime);
+                Vector3 ofst = _dragee.hanger.hangerOffsetT.position - _dragee.transform.position; 
+                _dragee.transform.position = transform.position + d * r.direction.normalized + ofst / 2;
+                _dragee.transform.rotation = Quaternion.Slerp(
+                        _dragee.transform.rotation, _dragee.starterRotation, _rotationSpeed * Time.fixedDeltaTime
+                );
 
-                Ray hangerRay = new Ray(transform.position, _dragee.hanger.hangerOffsetT.position - transform.position);
+                Ray hangerRay = new Ray(
+                        transform.position, _dragee.hanger.hangerOffsetT.position - transform.position
+                );
                 RaycastHit hit;
                 Physics.Raycast(hangerRay, out hit, 30, _hangerLayer);
                 if(hit.collider != null)
@@ -55,7 +60,10 @@ namespace DB.Utils
                 Physics.Raycast(r, out hit, 30, _layer, QueryTriggerInteraction.Ignore);
                 if (hit.collider != null)
                 {
-                    _dragee = hit.collider.GetComponent<FloatingObject>();
+                    _dragee = hit.collider.transform.GetComponent<FloatingObject>();
+
+                    if(_dragee == null)
+                        _dragee = hit.collider.transform.parent.GetComponent<FloatingObject>();
 
                     if (_dragee != null)
                     {

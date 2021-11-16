@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace DB.Scale{
     public class Level : MonoBehaviour
     {
-        public UnityEvent OnLevelSuccess;
+        public UnityEvent OnLevelSuccess, OnError, OnSpawn;
         public UnityAction EndLevelAction, DetachAction;
 
         public void OnSomethingTouchesWater(Collider other){
@@ -23,13 +23,23 @@ namespace DB.Scale{
         }
 
         [SerializeField] private List<Collider> _touchingWater;
-        [SerializeField] private float _beforeWinning = 3f;
-        [SerializeField] private FloatingObject[] _objects;
+        [SerializeField] private float _beforeWinning = 3f, _betweenSpawans = 1f;
+        [SerializeField] private List<FloatingObject> _objects;
         [SerializeField] private int _notHangingObjects = 0;
+        [SerializeField] private GameObject _textPrefab, _spawnFXPrefab;
+
+        private void Awake(){
+            _objects = new List<FloatingObject>();
+            foreach(FloatingObject fo in FindObjectsOfType<FloatingObject>()){
+                if(fo.gameObject.activeSelf){
+                    _objects.Add(fo);
+                }
+            }
+        }
 
         private void Start()
         {
-            _notHangingObjects = _objects.Length;
+            _notHangingObjects = _objects.Count;
 
             EndLevelAction += () =>
             {
@@ -43,9 +53,24 @@ namespace DB.Scale{
             {
                 obj.hanger.OnFullyHanged.AddListener(EndLevelAction);
                 obj.hanger.OnFullyDetach.AddListener(DetachAction);
+                obj.gameObject.SetActive(false);
             }
 
-            StartCoroutine(Tick());
+            StartCoroutine(SpawnObjects());
+        }
+
+        private IEnumerator SpawnObjects()
+        {
+            foreach (FloatingObject obj in _objects)
+            {
+                yield return new WaitForSeconds(_betweenSpawans);
+
+                GameObject go = Instantiate(_spawnFXPrefab);
+                go.transform.position = obj.transform.position;
+
+                obj.gameObject.SetActive(true);
+                OnSpawn?.Invoke();
+            }
         }
 
         private void OnAttachOne()
@@ -58,26 +83,65 @@ namespace DB.Scale{
             _notHangingObjects++;
         }
 
-        private IEnumerator Tick()
+        private void Update()
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(1);
-                if(_touchingWater.Count <= 0 && _notHangingObjects <= 0)
-                {
-                    StartCoroutine(StartLevelEnd());
+            for(int i = _touchingWater.Count - 1; i >= 0; i--){
+                if(!_touchingWater[i].enabled){
+                    _touchingWater.RemoveAt(i);
                 }
+            }
+
+            if(_touchingWater.Count <= 0 && _notHangingObjects <= 0)
+            {
+                StartCoroutine(StartLevelEnd());
             }
         }
 
+        private bool _counting;
         private IEnumerator StartLevelEnd(){
-            float time = 0;
-            while(_touchingWater.Count <= 0 && _notHangingObjects <= 0){
-                yield return new WaitForEndOfFrame();
-                time += Time.deltaTime;
-                if(time > _beforeWinning){
-                    OnLevelSuccess?.Invoke();
-                    break;
+            if (!_counting)
+            {
+                _counting = true;
+
+                bool _timeTick = false;
+                bool fail = true;
+                float time = 0;
+                int sec = 5;
+                while (_touchingWater.Count <= 0 && _notHangingObjects <= 0)
+                {
+                    yield return new WaitForEndOfFrame();
+                    time += Time.deltaTime;
+
+                    float trimTime = time % 1f;
+                    if (trimTime < 0.1)
+                    {
+                        if (!_timeTick && sec >= 0)
+                        {
+                            _timeTick = true;
+                            GameObject go = Instantiate(_textPrefab);
+                            go.transform.position = transform.position;
+                            go.GetComponent<TMPro.TextMeshPro>().text = sec + "";
+                            sec--;
+                        }
+                    }
+                    else
+                    {
+                        _timeTick = false;
+                    }
+
+                    if (time > _beforeWinning)
+                    {
+                        OnLevelSuccess?.Invoke();
+                        fail = false;
+                        break;
+                    }
+                }
+
+                if (fail)
+                {
+                    if(_notHangingObjects <= 0)
+                        OnError?.Invoke();
+                    _counting = false;
                 }
             }
         }

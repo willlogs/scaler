@@ -107,14 +107,14 @@ Transform:
   m_GameObject: {fileID: 3406682254446990454}
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 1.28, y: 4.22, z: 0}
-  m_LocalScale: {x: 0.05958239, y: 0.05958239, z: 0.05958239}
+  m_LocalScale: {x: 0.041461002, y: 0.041461002, z: 0.041461002}
   m_Children:
   - {fileID: 1290855210842409089}
   - {fileID: 6836002136469302304}
   - {fileID: 4882569967182948608}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7983996507532536834
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -173,7 +173,7 @@ Rigidbody:
   m_GameObject: {fileID: 3406682254446990454}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 2
   m_AngularDrag: 1
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -199,6 +199,7 @@ MonoBehaviour:
   _waterHeight: 0
   _gravityIntensity: 5
   _surfaceThreshold: 0.5
+  _meshCollider: {fileID: 0}
 --- !u!65 &9041952412424316918
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -275,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 523658649}
   hangerOffsetT: {fileID: 1290855210842409089}
+  _isHanger: 1
   OnAttach:
     m_PersistentCalls:
       m_Calls:
@@ -313,7 +315,6 @@ MonoBehaviour:
       m_Calls: []
   _floatingObject: {fileID: 523658648}
   _betweenFallAndAttach: 1
-  _isHanger: 1
 --- !u!54 &428060883621175109
 Rigidbody:
   m_ObjectHideFlags: 0

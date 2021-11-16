@@ -10,8 +10,14 @@ namespace DB.Scale
     {
         public Rigidbody rb;
         public Transform hangerOffsetT;
+        public bool _isHanger = false;
 	
         public UnityEvent OnAttach, OnDetach, OnFullyHanged, OnFullyDetach;
+
+        public void RegisterFO(FloatingObject fo){
+            rb = fo.rb;
+            _floatingObject = fo;
+        }
 
         public void Hang(Collider other)
         {
@@ -64,7 +70,6 @@ namespace DB.Scale
 
         [SerializeField] private FloatingObject _floatingObject;
         [SerializeField] private float _betweenFallAndAttach = 1f;
-        [SerializeField] private bool _isHanger = false;
         private Collider _hangingCollider;
         private HangerPos _hangerPos;
         private bool _readyToHang = false, _isHanging = false, _canHang = true;
@@ -110,6 +115,13 @@ namespace DB.Scale
                 cj.angularZLimit = _reference.angularZLimit;
                 cj.highAngularXLimit = _reference.highAngularXLimit;
                 cj.lowAngularXLimit = _reference.lowAngularXLimit;
+
+                cj.linearLimitSpring = _reference.linearLimitSpring;
+                cj.angularXLimitSpring = _reference.angularXLimitSpring;
+                cj.angularYZLimitSpring = _reference.angularYZLimitSpring;
+
+                if(!_isHanger)
+                    cj.enableCollision = _reference.enableCollision;
 
                 OnFullyHanged?.Invoke();
             }
