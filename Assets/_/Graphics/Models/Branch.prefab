@@ -173,7 +173,7 @@ Rigidbody:
   m_GameObject: {fileID: 3406682254446990454}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 2
+  m_Drag: 1
   m_AngularDrag: 1
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -192,13 +192,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5f6a0eb77a52a4b8305145137abdf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnStartDragUE:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopDragUE:
+    m_PersistentCalls:
+      m_Calls: []
   rb: {fileID: 523658649}
   isBeingDragged: 0
   starterRotation: {x: 0, y: 0, z: 0, w: 0}
   hanger: {fileID: 8701954827609196630}
-  _waterHeight: 0
-  _gravityIntensity: 5
-  _surfaceThreshold: 0.5
+  _waterHeight: 1
+  _gravityIntensity: 20
+  _surfaceThreshold: 2
   _meshCollider: {fileID: 0}
 --- !u!65 &9041952412424316918
 BoxCollider:
@@ -377,6 +383,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7481594506516163119
 GameObject:
   m_ObjectHideFlags: 0

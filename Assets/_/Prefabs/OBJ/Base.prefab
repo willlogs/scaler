@@ -1854,8 +1854,8 @@ MonoBehaviour:
   starterRotation: {x: 0, y: 0, z: 0, w: 0}
   hanger: {fileID: 4120217096974551902}
   _waterHeight: 0
-  _gravityIntensity: 5
-  _surfaceThreshold: 0.2
+  _gravityIntensity: 20
+  _surfaceThreshold: 0.5
   _meshCollider: {fileID: 0}
 --- !u!54 &2779113097745873573
 Rigidbody:
@@ -1866,7 +1866,7 @@ Rigidbody:
   m_GameObject: {fileID: 6272123961538619878}
   serializedVersion: 2
   m_Mass: 12
-  m_Drag: 2
+  m_Drag: 1
   m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0

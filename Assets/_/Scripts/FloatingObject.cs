@@ -77,7 +77,7 @@ namespace DB.Utils
 					);
 				else
 				{
-					rb.velocity += Time.fixedDeltaTime * _gravityIntensity / 2 * -Mathf.Sign(diff) * Vector3.down;
+					//rb.velocity += Time.fixedDeltaTime * _gravityIntensity / 2 * -Mathf.Sign(diff) * Vector3.down;
 				}
 			}
 		}

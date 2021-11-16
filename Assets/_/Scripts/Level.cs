@@ -106,7 +106,7 @@ namespace DB.Scale{
                 bool _timeTick = false;
                 bool fail = true;
                 float time = 0;
-                int sec = 5;
+                int sec = 2;
                 while (_touchingWater.Count <= 0 && _notHangingObjects <= 0)
                 {
                     yield return new WaitForEndOfFrame();
@@ -120,7 +120,7 @@ namespace DB.Scale{
                             _timeTick = true;
                             GameObject go = Instantiate(_textPrefab);
                             go.transform.position = transform.position;
-                            go.GetComponent<TMPro.TextMeshPro>().text = sec + "";
+                            go.GetComponent<TMPro.TextMeshPro>().text = (sec + 1) + "";
                             sec--;
                         }
                     }

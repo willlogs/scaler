@@ -865,7 +865,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _touchingWater: []
-  _beforeWinning: 5
+  _beforeWinning: 2
   _betweenSpawans: 0.5
   _objects:
   - {fileID: 0}
