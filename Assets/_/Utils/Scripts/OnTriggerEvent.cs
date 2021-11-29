@@ -10,12 +10,16 @@ namespace DB.Utils
         public LayerMask layerMask;
         public UnityEvent<Collider> OnEnter, OnExit, OnStay;
 
+        [SerializeField] private bool _checkForDisabled = false;
+        private List<Collider> colliders = new List<Collider>();
+
         private void OnTriggerEnter(Collider other)
         {
             int layerTest = layerMask.value & (1 << other.gameObject.layer);
             if (layerTest > 0)
             {
                 OnEnter?.Invoke(other);
+                colliders.Add(other);
             }
         }
 
@@ -25,6 +29,23 @@ namespace DB.Utils
             if (layerTest > 0)
             {
                 OnExit?.Invoke(other);
+                colliders.Remove(other);
+            }
+        }
+
+        private void Update()
+        {
+            if (_checkForDisabled)
+            {
+                for (int i = colliders.Count - 1; i >= 0; i--)
+                {
+                    Collider collider = colliders[i];
+                    if (!collider.enabled)
+                    {
+                        OnExit?.Invoke(collider);
+                        colliders.Remove(collider);
+                    }
+                }
             }
         }
 

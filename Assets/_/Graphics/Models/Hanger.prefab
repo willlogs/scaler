@@ -5021,7 +5021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4570045350723064150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 8.51}
+  m_LocalPosition: {x: 0, y: 0, z: 7.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8007422767015360194}
@@ -5246,6 +5246,7 @@ MonoBehaviour:
   OnStay:
     m_PersistentCalls:
       m_Calls: []
+  _checkForDisabled: 0
 --- !u!1001 &4119290144208159828
 PrefabInstance:
   m_ObjectHideFlags: 0

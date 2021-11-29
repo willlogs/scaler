@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 523658648}
   - component: {fileID: 9041952412424316918}
   - component: {fileID: 4570990499064965624}
+  - component: {fileID: 8993273974364956899}
   m_Layer: 6
   m_Name: Branch
   m_TagString: Untagged
@@ -202,6 +203,10 @@ MonoBehaviour:
   isBeingDragged: 0
   starterRotation: {x: 0, y: 0, z: 0, w: 0}
   hanger: {fileID: 8701954827609196630}
+  canBeDragged: 0
+  restPos: {x: 0, y: 0, z: 0}
+  menuTarget: {fileID: 0}
+  hasMenuTarget: 0
   _waterHeight: 1
   _gravityIntensity: 20
   _surfaceThreshold: 2
@@ -232,6 +237,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.5227737, y: 1.6975262, z: 7.9451337}
   m_Center: {x: -0.39170897, y: 0.015264741, z: 5.0114856}
+--- !u!114 &8993273974364956899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3406682254446990454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b4522b5c1fca904994202e4cd76c94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cap: 1
 --- !u!1 &5236708098487044816
 GameObject:
   m_ObjectHideFlags: 0

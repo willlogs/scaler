@@ -519,14 +519,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7457919388548397524, guid: 958f12e4622fa3e4bb59f69a8e941e5f, type: 3}
-      propertyPath: _objects.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7457919388548397524, guid: 958f12e4622fa3e4bb59f69a8e941e5f, type: 3}
-      propertyPath: _objects.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7457919389814783173, guid: 958f12e4622fa3e4bb59f69a8e941e5f, type: 3}
       propertyPath: m_Name
       value: LevelMainOBJ

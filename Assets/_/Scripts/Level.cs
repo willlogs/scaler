@@ -9,6 +9,7 @@ namespace DB.Scale{
     {
         public UnityEvent OnLevelSuccess, OnError, OnSpawn;
         public UnityAction EndLevelAction, DetachAction;
+        public ConfigurableJoint joint;
 
         public void OnSomethingTouchesWater(Collider other){
             if(!_touchingWater.Contains(other)){
@@ -25,8 +26,9 @@ namespace DB.Scale{
         [SerializeField] private List<Collider> _touchingWater;
         [SerializeField] private float _beforeWinning = 3f, _betweenSpawans = 1f;
         [SerializeField] private List<FloatingObject> _objects;
-        [SerializeField] private int _notHangingObjects = 0;
+        [SerializeField] private int _notHangingObjects = 0, _maxObj;
         [SerializeField] private GameObject _textPrefab, _spawnFXPrefab;
+        [SerializeField] private Transform[] _menuItems;
 
         private void Awake(){
             _objects = new List<FloatingObject>();
@@ -39,7 +41,6 @@ namespace DB.Scale{
 
         private void Start()
         {
-            _notHangingObjects = _objects.Count;
 
             EndLevelAction += () =>
             {
@@ -49,38 +50,81 @@ namespace DB.Scale{
 
             DetachAction += OnDetachOne;
 
+            _notHangingObjects = 0;
             foreach (FloatingObject obj in _objects)
             {
+                if (!obj.canBeDragged)
+                    continue;
+
+                _notHangingObjects++;
                 obj.hanger.OnFullyHanged.AddListener(EndLevelAction);
                 obj.hanger.OnFullyDetach.AddListener(DetachAction);
                 obj.gameObject.SetActive(false);
             }
+            _maxObj = _notHangingObjects;
 
+            for (int i = _notHangingObjects; i < _menuItems.Length; i++)
+            {
+                _menuItems[i].gameObject.SetActive(false);
+            }
+
+            SetLock();
             StartCoroutine(SpawnObjects());
+        }
+
+        private void SetLock()
+        {
+            if (_notHangingObjects == _maxObj)
+            {
+                joint.angularXMotion = ConfigurableJointMotion.Locked;
+                joint.angularYMotion = ConfigurableJointMotion.Locked;
+                joint.angularZMotion = ConfigurableJointMotion.Locked;
+            }
+            else
+            {
+                joint.angularXMotion = ConfigurableJointMotion.Limited;
+                joint.angularYMotion = ConfigurableJointMotion.Limited;
+                joint.angularZMotion = ConfigurableJointMotion.Limited;
+            }
         }
 
         private IEnumerator SpawnObjects()
         {
+            Vector3 campos = Camera.main.transform.position;
+            int i = 0;
             foreach (FloatingObject obj in _objects)
             {
+                if (!obj.canBeDragged)
+                    continue;
+
                 yield return new WaitForSeconds(_betweenSpawans);
+
+                obj.Deactivate();
+                obj.transform.position = campos +
+                    (_menuItems[i].position - campos).normalized * 1.5f;
+                obj.transform.localScale = Vector3.one * 0.1f;
+                obj.restPos = obj.transform.position;
+                obj.SetUIImage(_menuItems[i]);
 
                 GameObject go = Instantiate(_spawnFXPrefab);
                 go.transform.position = obj.transform.position;
 
                 obj.gameObject.SetActive(true);
                 OnSpawn?.Invoke();
-            }
+                i++;
+            }            
         }
 
         private void OnAttachOne()
         {
             _notHangingObjects--;
+            SetLock();
         }
 
         private void OnDetachOne()
         {
             _notHangingObjects++;
+            SetLock();
         }
 
         private void Update()

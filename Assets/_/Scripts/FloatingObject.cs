@@ -17,6 +17,31 @@ namespace DB.Utils
 		public bool isBeingDragged = false;
 		public Quaternion starterRotation;
 		public Hanger hanger;
+		public bool canBeDragged = true;
+
+		public Vector3 restPos;
+
+		public Transform menuTarget;
+		public bool hasMenuTarget = false;
+
+		public void SetUIImage(Transform target)
+        {
+			menuTarget = target;
+			hasMenuTarget = true;
+        }
+
+		public void Activate()
+        {
+			rb.isKinematic = false;
+        }
+
+		public void Deactivate()
+        {
+			rb.isKinematic = true;
+			transform.position = restPos;
+			transform.localScale = Vector3.one * 0.1f;
+			hanger.TryStopHang();
+        }
 
 		public void StartDrag()
         {
@@ -33,8 +58,10 @@ namespace DB.Utils
 			isBeingDragged = false;
 			OnStopDrag?.Invoke();
 
-            if(!hanger._isHanger)
-                _meshCollider.enabled = true;
+			if (!hanger._isHanger)
+			{
+				_meshCollider.enabled = true;
+			}
 
 			OnStopDragUE?.Invoke();
 		}

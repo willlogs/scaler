@@ -125,6 +125,10 @@ namespace DB.Scale
 
                 OnFullyHanged?.Invoke();
             }
+            else
+            {
+                _floatingObject.Deactivate();
+            }
         }
     }
 }
