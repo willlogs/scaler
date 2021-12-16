@@ -81,7 +81,6 @@ namespace DB.Utils
 
         private void Start()
 		{
-			rb.useGravity = false;
 			starterRotation = transform.rotation;
 		}
 
@@ -89,23 +88,7 @@ namespace DB.Utils
 		{
 			if (!isBeingDragged)
 			{
-				float diff = transform.position.y - _waterHeight;
-				if (Mathf.Abs(diff) > _surfaceThreshold)
-					rb.velocity += Time.fixedDeltaTime * _gravityIntensity * (
-						transform.position.y < 0
-						?
-						Vector3.up
-						:
-						transform.position.y > 0
-						?
-						Vector3.down
-						:
-						Vector3.zero
-					);
-				else
-				{
-					//rb.velocity += Time.fixedDeltaTime * _gravityIntensity / 2 * -Mathf.Sign(diff) * Vector3.down;
-				}
+
 			}
 		}
 	}

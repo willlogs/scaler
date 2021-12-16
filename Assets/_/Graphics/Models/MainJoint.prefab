@@ -256,8 +256,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568619077}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 8.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 9.86}
+  m_LocalScale: {x: 2.0577176, y: 2.0577176, z: 2.0577176}
   m_Children:
   - {fileID: 1276571701}
   m_Father: {fileID: 5144526046982156492}
@@ -265,7 +265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.61}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1568619081
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &1568619079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
 --- !u!114 &903389600708054117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +417,7 @@ MonoBehaviour:
   autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0, y: 5, z: 0}
+  endValueV3: {x: 0, y: 8, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
@@ -550,6 +550,7 @@ GameObject:
   - component: {fileID: 878881528263617791}
   - component: {fileID: 6750825109626133196}
   - component: {fileID: 5547720677612365054}
+  - component: {fileID: 4465012335099636179}
   m_Layer: 0
   m_Name: Renderer
   m_TagString: Untagged
@@ -578,7 +579,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6123496893491080869}
-  m_Mesh: {fileID: -5495902117074765545, guid: 6971253d99d008140a7c41daed24bb5a, type: 3}
+  m_Mesh: {fileID: -5495902117074765545, guid: 0af684f837f94b949bf27d12b951a476, type: 3}
 --- !u!23 &5547720677612365054
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -620,6 +621,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4465012335099636179
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123496893491080869}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: 0af684f837f94b949bf27d12b951a476, type: 3}
 --- !u!1 &9156516565806480934
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,7 +701,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 5.5}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.13, y: 4.262991, z: 0.00014063716}
+  m_ConnectedAnchor: {x: -0.13, y: 3.3229911, z: 0.00014063716}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -794,6 +809,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93016e900982a44fa0d2e92279ef84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnMustLose:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTouchWater:
+    m_PersistentCalls:
+      m_Calls: []
   _uiElement: {fileID: 1276571702}
   _sprites:
   - {fileID: 21300000, guid: ae8a5bdf1b3a4f646b47c8aeebd9d598, type: 3}
@@ -802,9 +823,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: db7e0a9bb3c471e4bbde4adc6363c028, type: 3}
   - {fileID: 21300000, guid: c9a4b45888520e04db3ab3df78677557, type: 3}
   - {fileID: 21300000, guid: 4992c544364625746a20a5af651eec7b, type: 3}
+  _waterTouch: {fileID: 0}
   _ranges:
   - 0.08
   - 0.15
   - 0.2
   - 0.3
   - 0.4
+  _textMessagePrefab: {fileID: 0}

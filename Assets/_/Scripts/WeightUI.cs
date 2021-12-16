@@ -47,9 +47,9 @@ namespace DB.Scale
                     if (!_showedCount)
                     {
                         _showedCount = true;
-                        GameObject textgo = Instantiate(_textMessagePrefab);
-                        TextMeshPro text = textgo.GetComponent<TextMeshPro>();
-                        text.text = _counted-- + "";
+                        /*GameObject textgo = Instantiate(_textMessagePrefab);
+                        TextMeshPro text = textgo.GetComponent<TextMeshPro>();*/
+                        /*text.text = _counted-- + "";*/
                     }
                 }
                 else

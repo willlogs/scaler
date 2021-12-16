@@ -162,9 +162,9 @@ namespace DB.Scale{
                         if (!_timeTick && sec >= 0)
                         {
                             _timeTick = true;
-                            GameObject go = Instantiate(_textPrefab);
+                            /*GameObject go = Instantiate(_textPrefab);
                             go.transform.position = transform.position;
-                            go.GetComponent<TMPro.TextMeshPro>().text = (sec + 1) + "";
+                            go.GetComponent<TMPro.TextMeshPro>().text = (sec + 1) + "";*/
                             sec--;
                         }
                     }

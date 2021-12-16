@@ -75,8 +75,8 @@ Material:
     - _Offset2: 0
     - _Outline: 25.9
     - _Parallax: 0.02
-    - _RampSmooth: 0.602
-    - _RampThreshold: 1
+    - _RampSmooth: 0.338
+    - _RampThreshold: 0.754
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -86,9 +86,9 @@ Material:
     - _ZSmooth: 3
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.7075472, g: 0.3509773, b: 0.11681202, a: 1}
+    - _Color: {r: 0.6603774, g: 0.504717, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 0.785, g: 0.785, b: 0.785, a: 1}
     - _OutlineColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _SColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+    - _SColor: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
   m_BuildTextureStacks: []
