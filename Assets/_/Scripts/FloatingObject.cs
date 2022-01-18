@@ -70,6 +70,9 @@ namespace DB.Utils
 		[SerializeField] private float _gravityIntensity = 5f;
 		[SerializeField] private float _surfaceThreshold = 0.5f;
         [SerializeField] private Collider _meshCollider;
+		[SerializeField] private Transform _shade;
+		[SerializeField] private SpriteRenderer _shadeSR;
+		[SerializeField] private Vector3 _shadeOffset;
 
         private void Awake()
         {
@@ -91,5 +94,23 @@ namespace DB.Utils
 
 			}
 		}
-	}
+
+        private void Update()
+        {
+			if (canBeDragged)
+			{
+				_shade.position = new Vector3(transform.position.x, 0, transform.position.z) + _shadeOffset;
+				_shade.up = Vector3.forward;
+
+				if (transform.position.y > 0)
+				{
+					_shadeSR.color = new Color(1f, 1f, 1f, ((5 - transform.position.y) / 5) - 0.2f);
+                }
+                else
+                {
+					_shadeSR.color = new Color(1f, 1f, 1f, (1 + transform.position.y) / 1);
+				}
+			}
+        }
+    }
 }
